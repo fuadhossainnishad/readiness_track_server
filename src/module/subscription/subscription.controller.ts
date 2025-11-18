@@ -8,11 +8,11 @@ import { idConverter } from "../../utility/idConverter";
 import NotificationServices from "../notification/notification.service";
 import { ISubscription, PaidStatus, SubStatus, SubType } from "./subscription.interface";
 import User from "../user/user.model";
-import StripeUtils from "../../utility/stripe.utils";
+// import StripeUtils from "../../utility/stripe.utils";
 import { IUser } from "../user/user.interface";
-import SubscriptionServices from "./subscription.services";
+// import SubscriptionServices from "./subscription.services";
 import StripeServices, { handleStripeWebhook } from "../stripe/stripe.service";
-import { Types } from "mongoose";
+// import { Types } from "mongoose";
 import Subscription from "./subscription.model";
 import Payment from "../payment/payment.model";
 import { IPayment } from "../payment/payment.interface";
@@ -173,97 +173,97 @@ const deleteSubscription: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const TrialSubscription: RequestHandler = catchAsync(async (req, res) => {
-  const { role, email, id, stripe_customer_id } = req.user;
-  if (role !== "User" || !email || !id) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      "Only valid user can have trial subscription",
-      ""
-    );
-  }
-  if (stripe_customer_id == "") {
-    const customer_id = await StripeUtils.CreateCustomerId(email);
-    req.user = await GenericService.updateResources<IUser>(User, id, { stripe_customer_id: customer_id })
-  }
-  const { subscriptionPlan } = req.user
-  if (subscriptionPlan.subType !== "none" && !subscriptionPlan.trialUsed) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      "You have already used your trial subscription",
-      ""
-    );
-  }
+// const TrialSubscription: RequestHandler = catchAsync(async (req, res) => {
+//   const { role, email, id, stripe_customer_id } = req.user;
+//   if (role !== "User" || !email || !id) {
+//     throw new AppError(
+//       httpStatus.BAD_REQUEST,
+//       "Only valid user can have trial subscription",
+//       ""
+//     );
+//   }
+//   if (stripe_customer_id == "") {
+//     const customer_id = await StripeUtils.CreateCustomerId(email);
+//     req.user = await GenericService.updateResources<IUser>(User, id, { stripe_customer_id: customer_id })
+//   }
+//   const { subscriptionPlan } = req.user
+//   if (subscriptionPlan.subType !== "none" && !subscriptionPlan.trialUsed) {
+//     throw new AppError(
+//       httpStatus.BAD_REQUEST,
+//       "You have already used your trial subscription",
+//       ""
+//     );
+//   }
 
-  subscriptionPlan.trial.start = new Date()
-  subscriptionPlan.trial.end = new Date(subscriptionPlan.trial.start.getTime() + 30 * 24 * 60 * 60 * 1000)
+//   subscriptionPlan.trial.start = new Date()
+//   subscriptionPlan.trial.end = new Date(subscriptionPlan.trial.start.getTime() + 30 * 24 * 60 * 60 * 1000)
 
-  const result = await SubscriptionServices.trialService<IUser & { _id: Types.ObjectId }>(req.user)
-  subscriptionPlan.trial.stripe_subscription_id = result
-  subscriptionPlan.subType = SubType.TRIAL
-  subscriptionPlan.trial.active = true
-  subscriptionPlan.isActive = true
-  req.user.sub_status = SubStatus.ACTIVE
+//   const result = await SubscriptionServices.trialService<IUser & { _id: Types.ObjectId }>(req.user)
+//   subscriptionPlan.trial.stripe_subscription_id = result
+//   subscriptionPlan.subType = SubType.TRIAL
+//   subscriptionPlan.trial.active = true
+//   subscriptionPlan.isActive = true
+//   req.user.sub_status = SubStatus.ACTIVE
 
-  const updateUser = await GenericService.updateResources<IUser>(User, id, req.user)
+//   const updateUser = await GenericService.updateResources<IUser>(User, id, req.user)
 
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.CREATED,
-    message: "successfully get trial subscription",
-    data: updateUser,
-  });
-})
+//   sendResponse(res, {
+//     success: true,
+//     statusCode: httpStatus.CREATED,
+//     message: "successfully get trial subscription",
+//     data: updateUser,
+//   });
+// })
 
-const PaidSubscription: RequestHandler = catchAsync(async (req, res) => {
-  const { role, email, id, stripe_customer_id } = req.user;
-  const { subscriptionId } = req.body.data
+// const PaidSubscription: RequestHandler = catchAsync(async (req, res) => {
+//   const { role, email, id, stripe_customer_id } = req.user;
+//   const { subscriptionId } = req.body.data
 
-  if (role !== "User" || !email || !id) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      "Only valid user can have paid subscription",
-    );
-  }
+//   if (role !== "User" || !email || !id) {
+//     throw new AppError(
+//       httpStatus.BAD_REQUEST,
+//       "Only valid user can have paid subscription",
+//     );
+//   }
 
-  if (!subscriptionId) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      "select a subscription",
-    );
-  }
+//   if (!subscriptionId) {
+//     throw new AppError(
+//       httpStatus.BAD_REQUEST,
+//       "select a subscription",
+//     );
+//   }
 
-  if (stripe_customer_id == "") {
-    const customer_id = await StripeUtils.CreateCustomerId(email);
-    req.user = await GenericService.updateResources<IUser>(User, id, { stripe_customer_id: customer_id })
-  }
+//   // if (stripe_customer_id == "") {
+//   //   const customer_id = await StripeUtils.CreateCustomerId(email);
+//   //   req.user = await GenericService.updateResources<IUser>(User, id, { stripe_customer_id: customer_id })
+//   // }
 
-  // const { subscriptionPlan } = req.user
-  // if (subscriptionPlan.subType === "paid" && subscriptionPlan.paid.status === "active") {
-  //   throw new AppError(
-  //     httpStatus.BAD_REQUEST,
-  //     "You have already used your paid subscription",
-  //     ""
-  //   );
-  // }
+//   // const { subscriptionPlan } = req.user
+//   // if (subscriptionPlan.subType === "paid" && subscriptionPlan.paid.status === "active") {
+//   //   throw new AppError(
+//   //     httpStatus.BAD_REQUEST,
+//   //     "You have already used your paid subscription",
+//   //     ""
+//   //   );
+//   // }
 
-  const subscription = await GenericService.findResources<ISubscription>(Subscription, await idConverter(subscriptionId))
+//   const subscription = await GenericService.findResources<ISubscription>(Subscription, await idConverter(subscriptionId))
 
-  const paymentIntent = await StripeServices.createPaymentIntentService({
-    userId: req.user._id.toString(),
-    stripe_customer_id: req.user.stripe_customer_id,
-    subscriptionId: subscriptionId,
-    amount: subscription[0].price,
-    currency: 'usd'
-  })
+//   const paymentIntent = await StripeServices.createPaymentIntentService({
+//     userId: req.user._id.toString(),
+//     stripe_customer_id: req.user.stripe_customer_id,
+//     subscriptionId: subscriptionId,
+//     amount: subscription[0].price,
+//     currency: 'usd'
+//   })
 
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.CONTINUE,
-    message: "please complete your payment to activate paid subscription",
-    data: paymentIntent,
-  });
-})
+//   sendResponse(res, {
+//     success: true,
+//     statusCode: httpStatus.CONTINUE,
+//     message: "please complete your payment to activate paid subscription",
+//     data: paymentIntent,
+//   });
+// })
 
 const Webhook: RequestHandler = catchAsync(async (req, res) => {
   const { _id, stripe_customer_id, subscriptionPlan } = req.user
@@ -328,8 +328,8 @@ const SubscriptionController = {
   getAllSubscription,
   updateSubscription,
   deleteSubscription,
-  TrialSubscription,
-  PaidSubscription,
+  // TrialSubscription,
+  // PaidSubscription,
   Webhook
 };
 
