@@ -1,4 +1,3 @@
-import { Subtype } from "aws-sdk/clients/connect";
 import { Types } from "mongoose";
 
 export interface IBase {
@@ -19,7 +18,7 @@ export enum PaidStatus {
   TRIALING = "trialing",
 }
 
-export enum SubType {
+export enum TSubType {
   NONE = "none",
   TRIAL = "trial",
   PAID = "paid",
@@ -34,7 +33,7 @@ export interface ISubscriptionPlan {
   trial: ITrial;
   trialUsed: boolean;
   paid: IPaid;
-  subType: Subtype
+  subType: TSubType
   isActive: boolean;
 }
 

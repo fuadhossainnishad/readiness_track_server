@@ -6,7 +6,7 @@ import sendResponse from "../../utility/sendResponse";
 import GenericService from "../../utility/genericService.helpers";
 import { idConverter } from "../../utility/idConverter";
 import NotificationServices from "../notification/notification.service";
-import { ISubscription, PaidStatus, SubStatus, SubType } from "./subscription.interface";
+import { ISubscription, PaidStatus, SubStatus, TSubType } from "./subscription.interface";
 import User from "../user/user.model";
 // import StripeUtils from "../../utility/stripe.utils";
 import { IUser } from "../user/user.interface";
@@ -296,7 +296,7 @@ const Webhook: RequestHandler = catchAsync(async (req, res) => {
   subscriptionPlan.paid.status = PaidStatus.ACTIVE
   subscriptionPlan.paid.start = new Date()
   subscriptionPlan.paid.end = new Date(subscriptionPlan.paid.start.getTime() + subscriptionPlan.paid.length * 24 * 60 * 60 * 1000)
-  subscriptionPlan.subType = SubType.PAID
+  subscriptionPlan.subType = TSubType.PAID
   subscriptionPlan.isActive = true
   req.user.sub_status = SubStatus.ACTIVE
 

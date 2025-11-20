@@ -1,6 +1,6 @@
 import { Subscription } from './../appointment/appointment.interface';
 import { model, Model, Schema } from "mongoose";
-import { IBase, IPaid, ISubscription, ISubscriptionPlan, ITrial, PaidStatus, SubType, IntervalType } from './subscription.interface';
+import { IBase, IPaid, ISubscription, ISubscriptionPlan, ITrial, PaidStatus, IntervalType, TSubType } from './subscription.interface';
 import MongooseHelper from "../../utility/mongoose.helpers";
 
 
@@ -73,8 +73,8 @@ const SubscriptionPlanSchema: Schema = new Schema<ISubscriptionPlan>(
     },
     subType: {
       type: String,
-      enum: Object.values(SubType),
-      default: "none",
+      enum: Object.values(TSubType),
+      default: TSubType.NONE,
       required: true,
     },
     isActive: {
