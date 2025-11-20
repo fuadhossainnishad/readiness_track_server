@@ -8,7 +8,7 @@ import {
 export interface IUser extends ISignup, IAdmin {
   uic: string;
   rank: string;
-  stripe_customer_id: string;
+  // stripe_customer_id: string;
   sub_status: SubStatus;
   subscriptionPlan: ISubscriptionPlan;
   last_login: Date;

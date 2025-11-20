@@ -56,11 +56,11 @@ export const UserSchema: Schema = new Schema<IUser>(
       type: SubscriptionSupportSchema.SubscriptionPlanSchema,
       required: false,
     },
-    stripe_customer_id: {
-      type: String,
-      required: roleBasedRequired,
-      default: "",
-    },
+    // stripe_customer_id: {
+    //   type: String,
+    //   required: roleBasedRequired,
+    //   default: "",
+    // },
     sub_status: {
       type: String,
       enum: Object.values(SubStatus),
