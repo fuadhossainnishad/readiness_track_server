@@ -9,6 +9,8 @@ import SubscriptionRouter from "../module/subscription/subscription.routes";
 import TrackRouter from "../module/track/track.routes";
 import AppointmentRouter from "../module/appointment/appointment.routes";
 import PaymentRouter from "../module/payment/payment.routes";
+import AdminUserRouter from "../module/adminUser/adminUser.routes";
+import CounselingRouter from "../module/counselling/counselling.routes";
 
 const router = express.Router();
 
@@ -20,6 +22,8 @@ const moduleRoutes = [
   { path: "/appointment", route: AppointmentRouter },
   { path: "/settings", route: SettingsRouter },
   { path: "/track", route: TrackRouter },
+  { path: "/counseling", route: CounselingRouter },
+  { path: "/adminUser", route: AdminUserRouter },
   { path: "/subscription", route: SubscriptionRouter },
   { path: "/payment", route: PaymentRouter },
   { path: "/notification", route: NotificationRouter },

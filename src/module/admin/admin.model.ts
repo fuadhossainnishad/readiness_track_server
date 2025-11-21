@@ -4,7 +4,7 @@ import { IAdmin } from "./admin.interface";
 import { Role } from "../auth/auth.interface";
 
 const isRequired = function (this: IAdmin): boolean {
-  return !(this.role === "Admin");
+  return (this.role === "User");
 };
 export const AdminSchema: Schema = new Schema<IAdmin>(
   {

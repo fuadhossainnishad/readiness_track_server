@@ -65,10 +65,24 @@ const createAppointment: RequestHandler = catchAsync(async (req, res) => {
 // });
 
 const getAllAppointment: RequestHandler = catchAsync(async (req, res) => {
+
+  const filters: Record<string, unknown> = { ...req.query };
+
+  // Handle date filter
+  if (req.query.dateTime) {
+    const [day, month, year] = (req.query.dateTime as string).split("/");
+
+    const start = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
+    const end = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
+
+    filters.dateTime = { $gte: start, $lte: end };
+  }
+
+
   const result = await GenericService.findAllResources<IAppointment>(
     Appointment,
     req.query,
-    ["date", "time", "details", "location","type"]
+    ["date", "time", "details", "location", "type"]
   );
 
   sendResponse(res, {

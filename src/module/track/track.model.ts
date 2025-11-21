@@ -5,7 +5,6 @@ import {
   IPhysicalFitness,
   IRangeQualification,
   IWeaponQualification,
-  TMedpro,
   TQualificationLevel,
   TTrack,
   TTrackType,
@@ -15,12 +14,12 @@ import {
 //   return !(this.role === "Admin");
 // };
 
-const MedproSchema: Schema = new Schema<IMedpro>(
+export const MedproSchema: Schema = new Schema<IMedpro>(
   {
-    type: {
-      type: String,
-      enum: Object.values(TMedpro),
-      required: false,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
     name: {
       type: String,

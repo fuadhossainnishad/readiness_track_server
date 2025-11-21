@@ -4,14 +4,11 @@ import MongooseHelper from "../../utility/mongoose.helpers";
 import Admin, { AdminSchema } from "../admin/admin.model";
 import { SubStatus } from "../subscription/subscription.interface";
 import { SubscriptionSupportSchema } from "../subscription/subscription.model";
+// import { SubStatus } from "../subscription/subscription.interface";
+// import { SubscriptionSupportSchema } from "../subscription/subscription.model";
 
 // Helpers
-const isRequired = function (this: IUser): boolean {
-  return !!this.firstName;
-};
-const roleBasedRequired = function (this: IUser): boolean {
-  return this.role === 'User'
-}
+
 
 // const isPlanRequired = function (this: IUser): boolean {
 //   return !this.trial;
@@ -28,22 +25,6 @@ export const UserSchema: Schema = new Schema<IUser>(
     //   type: String,
     //   required: isRequiredForSocial,
     // },
-    firstName: {
-      type: String,
-      required: roleBasedRequired,
-    },
-    lastName: {
-      type: String,
-      required: isRequired,
-    },
-    mobile: {
-      type: String,
-      required: isRequired,
-    },
-    countryCode: {
-      type: String,
-      required: isRequired,
-    },
     uic: {
       type: String,
       default: "",
@@ -52,21 +33,21 @@ export const UserSchema: Schema = new Schema<IUser>(
       type: String,
       default: "",
     },
-    subscriptionPlan: {
-      type: SubscriptionSupportSchema.SubscriptionPlanSchema,
-      required: false,
-    },
+    // subscriptionPlan: {
+    //   type: SubscriptionSupportSchema.SubscriptionPlanSchema,
+    //   required: true,
+    // },
     // stripe_customer_id: {
     //   type: String,
     //   required: roleBasedRequired,
     //   default: "",
     // },
-    sub_status: {
-      type: String,
-      enum: Object.values(SubStatus),
-      default: SubStatus.INACTIVE,
-      required: roleBasedRequired,
-    },
+    // sub_status: {
+    //   type: String,
+    //   enum: Object.values(SubStatus),
+    //   default: SubStatus.ACTIVE,
+    //   // required: roleBasedRequired,
+    // },
     last_login: {
       type: Date,
       default: Date.now,

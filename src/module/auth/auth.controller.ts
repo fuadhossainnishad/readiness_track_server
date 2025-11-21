@@ -47,7 +47,7 @@ const signUp: RequestHandler = catchAsync(async (req, res) => {
 
 
 const login: RequestHandler = catchAsync(async (req, res) => {
-  let redirectData;
+  // let redirectData;
 
   // await NotificationServices.sendNoification({
   //   ownerId: user._id,
@@ -69,10 +69,10 @@ const login: RequestHandler = catchAsync(async (req, res) => {
   };
 
 
-  if (user.role === 'User') {
-    jwtPayload.sub_status = user.sub_status
-    jwtPayload.subType = user.subscriptionPlan.subType
-  }
+  // if (user.role === 'User') {
+  //   jwtPayload.sub_status = user.sub_status
+  //   jwtPayload.subType = user.subscriptionPlan.subType
+  // }
 
   const token = await AuthServices.GenerateToken(jwtPayload);
   res.cookie("refreshToken", token.refreshToken, {
@@ -80,29 +80,29 @@ const login: RequestHandler = catchAsync(async (req, res) => {
     httpOnly: true,
   });
 
-  redirectData = { meassage: "login as admin", redirect: "/dashboard" }
+  // redirectData = { meassage: "login as admin", redirect: "/dashboard" }
 
-  if (user.role === 'User') {
-    const getRedirectUrl = (subStatus: string, trialUsed: boolean) => {
-      if (subStatus === "inactive" && !trialUsed) {
-        return { message: "Please complete your trial subscription", redirect: "/trial" };
-      }
-      if (subStatus === "inactive" && trialUsed) {
-        return { message: "Please complete your trial subscription", redirect: "/paid" };
-      }
-      return { message: "Successfully logged in", redirect: "/home" };
-    };
+  // if (user.role === 'User') {
+  //   const getRedirectUrl = (subStatus: string, trialUsed: boolean) => {
+  //     if (subStatus === "inactive" && !trialUsed) {
+  //       return { message: "Please complete your trial subscription", redirect: "/trial" };
+  //     }
+  //     if (subStatus === "inactive" && trialUsed) {
+  //       return { message: "Please complete your trial subscription", redirect: "/paid" };
+  //     }
+  //     return { message: "Successfully logged in", redirect: "/home" };
+  //   };
 
-    redirectData = getRedirectUrl(user.sub_status, user.subscriptionPlan.trialUsed);
-  }
+  //   redirectData = getRedirectUrl(user.sub_status, user.subscriptionPlan.trialUsed);
+  // }
 
 
 
   return sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: redirectData.message!,
-    data: { token, redirectData },
+    message: "successfully logged in",
+    data: { token },
   });
 
 

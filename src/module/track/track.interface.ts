@@ -12,7 +12,7 @@ export enum TMedpro {
 }
 
 export interface IMedpro {
-  type?: TMedpro;
+  userId: Types.ObjectId;
   name: string;
   date: Date;
   isDeleted: boolean;

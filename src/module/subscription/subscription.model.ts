@@ -7,21 +7,21 @@ import MongooseHelper from "../../utility/mongoose.helpers";
 
 const BaseSchemaOptions = new Schema<IBase>(
   {
-    stripe_subscription_id: {
-      type: String,
-      required: true,
-    },
+    // stripe_subscription_id: {
+    //   type: String,
+    //   required: true,
+    // },
     length: {
       type: Number,
       default: 30,
     },
     start: {
       type: Date,
-      required: true,
+      default: Date.now,
     },
     end: {
       type: Date,
-      required: true,
+      default: Date.now,
     },
   },
   { _id: false }
@@ -60,6 +60,7 @@ const SubscriptionPlanSchema: Schema = new Schema<ISubscriptionPlan>(
     trial: {
       type: TrialSchema,
       required: true,
+
     },
     trialUsed: {
       type: Boolean,
