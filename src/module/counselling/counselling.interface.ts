@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import { IMedpro } from "../track/track.interface";
 
+
 export interface ICounseling extends IMedpro {
   nextDate: Date;
   counseledBy: string;

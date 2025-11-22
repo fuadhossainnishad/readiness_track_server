@@ -11,6 +11,10 @@ import AppointmentRouter from "../module/appointment/appointment.routes";
 import PaymentRouter from "../module/payment/payment.routes";
 import AdminUserRouter from "../module/adminUser/adminUser.routes";
 import CounselingRouter from "../module/counselling/counselling.routes";
+import RangeQualificationRouter from "../module/rangeQualification/rangeQualification.routes";
+import WeaponQualificationRouter from "../module/weaponQualification/weaponQualification.routes";
+import PhysicalFitnessTestRouter from "../module/physicalFitnessTest/physicalFitnessTest.routes";
+import MedproRouter from "../module/medpro/medpro.routes";
 
 const router = express.Router();
 
@@ -24,6 +28,10 @@ const moduleRoutes = [
   { path: "/track", route: TrackRouter },
   { path: "/counseling", route: CounselingRouter },
   { path: "/adminUser", route: AdminUserRouter },
+  { path: "/range-qualification", route: RangeQualificationRouter },
+  { path: "/weapon-qualification", route: WeaponQualificationRouter },
+  { path: "/physical-fitness", route: PhysicalFitnessTestRouter },
+  { path: "/medpro", route: MedproRouter },
   { path: "/subscription", route: SubscriptionRouter },
   { path: "/payment", route: PaymentRouter },
   { path: "/notification", route: NotificationRouter },

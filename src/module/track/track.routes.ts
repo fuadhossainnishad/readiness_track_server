@@ -1,17 +1,17 @@
-import express from "express";
-import TrackController from "./track.controller";
+import { Router } from "express";
+import trackController from "./track.controller";
+import auth from "../../middleware/auth";
 
-const router = express.Router();
+const router = Router();
 
-router.route("/").post(TrackController.insertTrack).get(
-  //   validationRequest(AuthValidationSchema.playerSignUpValidation),
-  TrackController.getTrack
-);
+// GET /track/completion-status
 
-router.route("/:id").patch(
-  //   validationRequest(AuthValidationSchema.playerSignUpValidation),
-  TrackController.updateTrack
+router.get(
+  "/status",
+  auth('User'),
+  trackController.getCompletionStatus
 );
 
 const TrackRouter = router;
+
 export default TrackRouter;
