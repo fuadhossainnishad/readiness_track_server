@@ -10,7 +10,7 @@ export enum TQualificationLevel {
 export interface IRangeQualification extends Omit<IMedpro, "name"> {
   weaponName: string;
   score: number;
-  qualificationLevel: TQualificationLevel[];
+  qualificationLevel: TQualificationLevel;
 }
 
 export type TRangeQualificationUpdate = Partial<IRangeQualification> & {

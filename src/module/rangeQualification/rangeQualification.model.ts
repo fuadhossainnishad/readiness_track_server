@@ -13,11 +13,11 @@ export const RangeQualificationSchema: Schema = new Schema<IRangeQualification>(
     type: Number,
     required: true,
   },
-  qualificationLevel: [{
+  qualificationLevel: {
     type: String,
     enum: Object.values(TQualificationLevel),
     required: true,
-  }],
+  },
 }).add(SchemaHelper.RemoveSchemaFields(MedproSchema, ["name"]));
 
 MongooseHelper.findExistence<IRangeQualification>(RangeQualificationSchema);
