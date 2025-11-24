@@ -7,7 +7,6 @@ import GenericService from "../../utility/genericService.helpers";
 import User from "./user.model";
 import { IUser } from "./user.interface";
 import { idConverter } from "../../utility/idConverter";
-import UserServices from "./user.services";
 import NotificationServices from "../notification/notification.service";
 
 // const getUser: RequestHandler = catchAsync(async (req, res) => {
