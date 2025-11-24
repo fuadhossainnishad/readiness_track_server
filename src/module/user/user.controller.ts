@@ -30,7 +30,20 @@ import NotificationServices from "../notification/notification.service";
 // });
 
 const getUser: RequestHandler = catchAsync(async (req, res) => {
-  const result = await GenericService.findAllResources<IUser>(User, req.query, [
+  if (!req.user) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "User not authenticated", "");
+  }
+
+  let query: Record<string, unknown> = req.query
+
+  if (req.user.role === "User") {
+    query = {
+      _id: req.user._id,
+      ...query
+    }
+  }
+
+  const result = await GenericService.findAllResources<IUser>(User, query, [
     "email",
     "userName",
     "sub",
@@ -55,7 +68,7 @@ const updateUser: RequestHandler = catchAsync(async (req, res) => {
     throw new AppError(httpStatus.BAD_REQUEST, "userId is required", "");
   }
   req.body.data.userId = userId;
-  const result = await UserServices.updateUserService(req.body.data);
+  const result = await GenericService.updateResources(User, userId, req.body.data)
 
   await NotificationServices.sendNoification({
     ownerId: await idConverter(req.body.data.userId),

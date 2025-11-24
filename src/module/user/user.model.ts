@@ -2,8 +2,6 @@ import { Model, Schema } from "mongoose";
 import { IUser } from "./user.interface";
 import MongooseHelper from "../../utility/mongoose.helpers";
 import Admin, { AdminSchema } from "../admin/admin.model";
-import { SubStatus } from "../subscription/subscription.interface";
-import { SubscriptionSupportSchema } from "../subscription/subscription.model";
 // import { SubStatus } from "../subscription/subscription.interface";
 // import { SubscriptionSupportSchema } from "../subscription/subscription.model";
 
