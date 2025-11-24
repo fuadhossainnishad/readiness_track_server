@@ -23,16 +23,16 @@ export const PhysicalFitnessTestSchema: Schema = new Schema<IPhysicalFitnessTest
     ref: "User",
     required: true,
   },
-  physicalFitness: {
-    type: [PhysicalFitnessSchema],
-    required: true,
-  },
+  // physicalFitness: {
+  //   type: PhysicalFitnessSchema,
+  //   required: true,
+  // },
   isDeleted: {
     type: Boolean,
     default: false,
   },
 },
-  { timestamps: true });
+  { timestamps: true }).add(PhysicalFitnessSchema);
 
 MongooseHelper.findExistence<IPhysicalFitnessTest>(PhysicalFitnessTestSchema);
 MongooseHelper.applyToJSONTransform(PhysicalFitnessTestSchema);

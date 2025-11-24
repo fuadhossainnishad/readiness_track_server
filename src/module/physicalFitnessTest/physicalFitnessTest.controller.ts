@@ -8,14 +8,9 @@ const PhysicalFitnessTestController = GenericController<IPhysicalFitnessTest>(ph
     beforeCreate: (data, req) => {
       data.userId = req.user?._id;
 
-      if (data.physicalFitness && Array.isArray(data.physicalFitness)) {
-        data.physicalFitness = data.physicalFitness.map((item) => {
-          if (item.date && typeof item.date === "string") {
-            const [day, month, year] = item.date.split("/").map(Number);
-            item.date = new Date(year + 2000, month - 1, day);
-          }
-          return item;
-        })
+      if (data.date && typeof data.date === "string") {
+        const [day, month, year] = data.date.split("/").map(Number);
+        data.date = new Date(year + 2000, month - 1, day);
       }
       return data;
     },

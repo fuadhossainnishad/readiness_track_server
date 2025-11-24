@@ -7,9 +7,8 @@ export interface IPhysicalFitness {
   pass: boolean;
 }
 
-export interface IPhysicalFitnessTest {
+export interface IPhysicalFitnessTest extends IPhysicalFitness {
   userId: Types.ObjectId;
-  physicalFitness: IPhysicalFitness[],
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
