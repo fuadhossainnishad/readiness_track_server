@@ -62,9 +62,29 @@ const updateAdmin: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const deleteAdmin: RequestHandler = catchAsync(async (req, res) => {
+  if (!req.user && req.user.role !== 'Admin') {
+    throw new AppError(httpStatus.UNAUTHORIZED, "User not authenticated", "");
+  }
+
+  const result = await GenericService.deleteResources(Admin, req.user._id)
+
+  if (!result) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "Error on deleting admin", "");
+  }
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.CREATED,
+    message: "successfully updated admin profile",
+    data: "",
+  });
+})
+
 const AdminController = {
   getAdmin,
   updateAdmin,
+  deleteAdmin
 };
 
 export default AdminController;

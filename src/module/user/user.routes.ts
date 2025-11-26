@@ -19,13 +19,11 @@ router
     fileHandle("photo"),
     //   validationRequest(AuthValidationSchema.playerSignUpValidation),
     UserController.updateUser
+  ).delete(
+    auth("User"),
+    //   validationRequest(AuthValidationSchema.playerSignUpValidation),
+    UserController.deleteUser
   );
-
-router.delete(
-  "/:id",
-  //   validationRequest(AuthValidationSchema.playerSignUpValidation),
-  UserController.deleteUser
-);
 
 const UserRouter = router;
 export default UserRouter;
