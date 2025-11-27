@@ -13,17 +13,19 @@ router
     //   validationRequest(AuthValidationSchema.playerSignUpValidation),
     UserController.getUser
   )
+  .delete(
+    auth("User"),
+    //   validationRequest(AuthValidationSchema.playerSignUpValidation),
+    UserController.deleteUser
+  )
   .patch(
     auth("User", "Admin"),
     upload.fields([{ name: "photo", maxCount: 1 }]),
     fileHandle("photo"),
     //   validationRequest(AuthValidationSchema.playerSignUpValidation),
     UserController.updateUser
-  ).delete(
-    auth("User"),
-    //   validationRequest(AuthValidationSchema.playerSignUpValidation),
-    UserController.deleteUser
-  );
+  )
+
 
 const UserRouter = router;
 export default UserRouter;

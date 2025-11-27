@@ -76,7 +76,7 @@ const deleteAdmin: RequestHandler = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.CREATED,
-    message: "successfully updated admin profile",
+    message: "successfully deleted admin profile",
     data: "",
   });
 })
