@@ -102,7 +102,7 @@ const login: RequestHandler = catchAsync(async (req, res) => {
     success: true,
     statusCode: httpStatus.OK,
     message: "successfully logged in",
-    data: { token },
+    data: { token: token, detailss:user },
   });
 
 

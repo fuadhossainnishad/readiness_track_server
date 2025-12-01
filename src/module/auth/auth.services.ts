@@ -26,12 +26,7 @@ const loginService = async (payload: ISignIn) => {
   //   query["authProviderName"] = payload.authProviderName;
   // }
 
-  const isExist = await QueryModel.findOne(query, {
-    _id: 1,
-    password: 1,
-    email: 1,
-    role: 1,
-  });
+  const isExist = await QueryModel.findOne(query, { confirmedPassword: 0 });
 
   if (!isExist) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found", "");
