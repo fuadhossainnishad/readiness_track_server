@@ -107,17 +107,20 @@ const trackService = {
                     },
 
                     // fitnessCompleted: at least one physicalFitness entry exists (physicalFitness array length > 0)
+                    // fitnessCompleted: {
+                    //     $gt: [
+                    //         {
+                    //             $reduce: {
+                    //                 input: "$fitnessDocs",
+                    //                 initialValue: 0,
+                    //                 in: { $add: ["$$value", { $size: { $ifNull: ["$$this.physicalFitness", []] } }] }
+                    //             }
+                    //         },
+                    //         0
+                    //     ]
+                    // },
                     fitnessCompleted: {
-                        $gt: [
-                            {
-                                $reduce: {
-                                    input: "$fitnessDocs",
-                                    initialValue: 0,
-                                    in: { $add: ["$$value", { $size: { $ifNull: ["$$this.physicalFitness", []] } }] }
-                                }
-                            },
-                            0
-                        ]
+                        $gt: [{ $size: "$fitnessDocs" }, 0]
                     },
 
                     // rangeCompleted: at least one range doc with score > 0 and non-empty qualificationLevel
@@ -131,8 +134,12 @@ const trackService = {
                                         cond: {
                                             $and: [
                                                 { $gt: ["$$r.score", 0] },
-                                                { $gt: [{ $size: { $ifNull: ["$$r.qualificationLevel", []] } }, 0] }
-                                            ]
+                                                {
+                                                    $gt: [
+                                                        { $strLenCP: { $ifNull: ["$$r.qualificationLevel", ""] } },
+                                                        0
+                                                    ]
+                                                }]
                                         }
                                     }
                                 }
