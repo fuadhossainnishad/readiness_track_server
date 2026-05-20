@@ -2,7 +2,8 @@ import { GenericController } from "../../utility/genericController.helpers";
 import { IWeaponQualification } from "./weaponQualification.interface";
 import WeaponQualification from "./weaponQualification.model";
 
-const WeaponQualificationController = GenericController<IWeaponQualification>(WeaponQualification,
+const WeaponQualificationController = GenericController<IWeaponQualification>(
+  WeaponQualification,
   {
     requireAuth: true,
     beforeCreate: (data, req) => {
@@ -20,7 +21,7 @@ const WeaponQualificationController = GenericController<IWeaponQualification>(We
       }
       return query;
     },
-  }
-)
+  },
+);
 
 export default WeaponQualificationController;

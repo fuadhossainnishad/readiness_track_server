@@ -4,6 +4,7 @@ import config from "./app/config";
 import mongoose from "mongoose";
 import { testS3 } from "./app/config/s3Bucket.config";
 import { httpServer } from "./app";
+import { initializeCronJobs } from "./jobs/cron";
 
 let server: Server;
 
@@ -43,6 +44,7 @@ const bootstrap = async () => {
   await testS3();
   await registerDBEventListener();
   await startServer();
+  initializeCronJobs();
 };
 
 bootstrap().catch((error) => {

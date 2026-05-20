@@ -1,6 +1,5 @@
 import { Types } from "mongoose";
 
-
 export interface IMedpro {
   userId: Types.ObjectId;
   name: string;
@@ -25,6 +24,7 @@ export interface IPhysicalFitness extends IMedpro {
 export interface IRangeQualification extends IMedpro {
   score: number;
   qualificationLevel: TQualificationLevel;
+  remainderDays: number;
 }
 
 export interface ICounseling extends IMedpro {

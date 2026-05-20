@@ -11,6 +11,9 @@ export interface IRangeQualification extends Omit<IMedpro, "name"> {
   weaponName: string;
   score: number;
   qualificationLevel: TQualificationLevel;
+  reminderDays: number;
+  reminderSent: boolean;
+  reminderSentAt?: Date;
 }
 
 export type TRangeQualificationUpdate = Partial<IRangeQualification> & {

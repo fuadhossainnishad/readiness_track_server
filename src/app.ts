@@ -38,7 +38,7 @@ app.use(
         scriptSrc: ["'self'", "'unsafe-inline'", "http://localhost:3000"],
       },
     },
-  })
+  }),
 );
 app.use("/api", rateLimiter);
 
@@ -52,7 +52,7 @@ app.use(
     origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  })
+  }),
 );
 
 app.use("/src/uploads", express.static("./src/uploads"));

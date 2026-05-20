@@ -1,6 +1,5 @@
 import { Types } from "mongoose";
-import { IRangeQualification } from "../track/track.interface";
-
+import { IRangeQualification } from "../rangeQualification/rangeQualification.interface";
 
 export interface IWeaponQualification extends IRangeQualification {
   pass: boolean;
